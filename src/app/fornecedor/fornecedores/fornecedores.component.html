@@ -1,0 +1,58 @@
+<form class="form-inline">
+
+    <div class="form-group mx-sm-3 mb-2">
+        <label for="nome" class="sr-only">pesquisar por nome</label>
+        <input type="text" class="form-control" id="nome" name="nome" [(ngModel)]="nome"
+            placeholder="pesquisar por nome">
+    </div>
+    <button type="button" (click)="filtrar()" class="btn btn-primary mb-2">buscar</button>
+    <button type="button" (click)="gerarRelatorio()" class="btn btn-primary mb-2" data-toggle="modal"
+        data-target=".bd-example-modal-lg">PDF</button>
+    <button type="button" [routerLink]="[ '/addFornecedor' ]" routerLinkActive="active"
+        class="btn btn-success mb-2">Novo</button>
+
+
+</form>
+
+<table class="table">
+    <thead>
+        <th>Id</th>
+        <th>Nome</th>
+        <th>Cnpj</th>
+        <th>Razão social</th>
+        <th>Editar</th>
+        <th>Deletar</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let fornecedor of fornecedores | paginate: configPaginate; let i = index">
+            <td>{{fornecedor.id}}</td>
+            <td>{{fornecedor.nome}}</td>
+            <td>{{fornecedor.cnpj | mask:'00.000.000/0000-00'}}</td>
+            <td>{{fornecedor.razaoSocial}}</td>
+            <td><button type="button" [routerLink]="[ '/addFornecedor', fornecedor.id ]"
+                    class="btn btn-primary">Editar</button></td>
+            <td><button type="button" (click)="deletarPorId(fornecedor.id, i)" class="btn btn-danger">Deletar</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<pagination-controls (pageChange)="onChangePage($event)" responsive="true" previousLabel="anterior" nextLabel="proximo">
+</pagination-controls>
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Relatorio dos fornecedores</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <iframe src="" style="width: 100%; height: 500px;" frameborder="0"></iframe>
+            </div>
+        </div>
+    </div>
+</div>

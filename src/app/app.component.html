@@ -1,0 +1,86 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light" *ngIf="isLogado()">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" [routerLink]="[ '/home' ]" routerLinkActive="active">Home <span
+                        class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" (click)="sair()">Sair</a>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Cliente
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" [routerLink]="[ '/clientes' ]" routerLinkActive="active">lista de
+                        clientes</a>
+                    <a class="dropdown-item" [routerLink]="[ '/relatorioCliente' ]" routerLinkActive="active">lista de
+                        Relatorio dos clientes</a>
+                </div>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Fornecedor
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" [routerLink]="[ '/fornecedores' ]" routerLinkActive="active">lista de
+                        fornecedores </a>
+                </div>
+            </li>
+
+            <li class=" nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Funcionario
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" [routerLink]="[ '/funcionarios' ]" routerLinkActive="active">lista
+                        de
+                        funcionarios</a>
+
+                    <a class="dropdown-item" [routerLink]="[ '/relatorioFuncionario' ]" routerLinkActive="active">lista
+                        de
+                        Relatorio dos funcionarios</a>
+                </div>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Produto
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" [routerLink]="[ '/produtos' ]" routerLinkActive="active">lista de
+                        produtos</a>
+
+                    <a class="dropdown-item" [routerLink]="[ '/graficoProduto' ]" routerLinkActive="active">grafico de
+                        produtos</a>
+                </div>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Ordem de serviço
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" [routerLink]="[ '/ordens' ]" routerLinkActive="active">lista de
+                        ordens de serviço</a>
+
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<router-outlet></router-outlet>
+<app-alerts></app-alerts>

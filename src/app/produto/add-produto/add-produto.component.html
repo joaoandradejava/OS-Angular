@@ -1,0 +1,52 @@
+<form #produtoFormValidator="ngForm">
+    <div class="form-row">
+        <div class="form-group col-md-2">
+            <label for="id">Id</label>
+            <input type="text" class="form-control" [(ngModel)]="produto.id" id="id" name="id" readonly>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="marca">Marca</label>
+            <span style="color: red; font-size: 20px;" *ngIf="marcaValidator.invalid"> *</span>
+            <input type="text" class="form-control" #marcaValidator="ngModel" [(ngModel)]="produto.marca" id="marca"
+                name="marca" required>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="modelo">Modelo </label>
+            <span style="color: red; font-size: 20px;" *ngIf="modeloValidator.invalid"> *</span>
+            <input type="text" class="form-control" #modeloValidator="ngModel" [(ngModel)]="produto.modelo" id="modelo"
+                name="modelo" required>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="codigo">Codigo</label>
+            <span style="color: red; font-size: 20px;" *ngIf="codigoValidator.invalid"> *</span>
+            <input type="text" class="form-control" id="codigo" name="codigo" #codigoValidator="ngModel"
+                [(ngModel)]="produto.codigo" required>
+        </div>
+        <div class="form-group col-md-4">
+            <label for="tipoProduto">Tipo do produto</label>
+            <span style="color: red; font-size: 20px;" *ngIf="tipoProdutoValidator.invalid"> *</span>
+            <select class="custom-select" name="tipoProduto" id="tipoProduto" #tipoProdutoValidator="ngModel"
+                [(ngModel)]="produto.tipoProduto" required>
+                <option *ngFor="let tipo of key(tipoProduto)" [value]="tipo">
+                    {{tipoProduto[tipo]}}</option>
+            </select>
+        </div>
+        <div class="form-group col-md-4">
+            <label for="valor">Valor</label>
+            <span style="color: red; font-size: 20px;" *ngIf="valorValidator.invalid"> *</span>
+            <input type="text" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
+                class="form-control" id="valor" name="valor" #valorValidator="ngModel" [(ngModel)]="produto.valor"
+                required>
+        </div>
+    </div>
+
+</form>
+
+<button type="button" [routerLink]="[ '/produtos' ]" routerLinkActive="active" class="btn btn-primary">Voltar</button>
+<button type="button" (click)="limparFormulario()" class="btn btn-primary">Cancelar</button>
+<button type="button" (click)="salvarAction()" class="btn btn-success"
+    [disabled]="produtoFormValidator.invalid">Salvar</button>

@@ -1,0 +1,49 @@
+<form #pessoaParametroFormValidator="ngForm">
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="dataInicio">Data de inicio</label>
+            <span style="color: red; font-size: 20px;" *ngIf="dataInicioValidator.invalid"> *</span>
+            <div class="input-group mb-3">
+                <input class="form-control" placeholder="dd/mm/yyyy" name="dataInicio" #dataInicioValidator="ngModel"
+                    [(ngModel)]="pessoaParametro.dataInicio" ngbDatepicker #dataInicio="ngbDatepicker" required>
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary calendar" style="width: 30px;"
+                        (click)="dataInicio.toggle()" type="button"></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group col-md-6">
+            <label for="dataFim">Data de fim</label>
+            <span style="color: red; font-size: 20px;" *ngIf="dataFimValidator.invalid"> *</span>
+            <div class="input-group mb-3">
+                <input class="form-control" placeholder="dd/mm/yyyy" name="dataFim" #dataFimValidator="ngModel"
+                    [(ngModel)]="pessoaParametro.dataFim" ngbDatepicker #dataFim="ngbDatepicker" required>
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary calendar" style="width: 30px;" (click)="dataFim.toggle()"
+                        type="button"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<button class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" type="button"
+    [disabled]="pessoaParametroFormValidator.invalid" (click)="gerarRelatorioComParametros()">Gerar relatorio</button>
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Relatorio dos clientes</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <iframe src="" style="width: 100%; height: 500px;" frameborder="0"></iframe>
+            </div>
+        </div>
+    </div>
+</div>

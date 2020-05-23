@@ -1,0 +1,111 @@
+<form #funcionarioFormValidator="ngForm" enctype="multipart/form-data">
+    <div class="form-row">
+        <div class="form-group col-md-2">
+            <label for="id">Id</label>
+            <input type="text" class="form-control" [(ngModel)]="funcionario.id" id="id" name="id" readonly>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-12">
+            <label for="nome">Nome</label>
+            <span style="color: red; font-size: 20px;" *ngIf="nomeValidator.invalid"> *</span>
+            <input type="text" class="form-control" #nomeValidator="ngModel" [(ngModel)]="funcionario.nome" id="nome"
+                name="nome" required>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="sexo">Sexo</label>
+            <span style="color: red; font-size: 20px;" *ngIf="sexoValidator.invalid"> *</span>
+            <select class="custom-select" id="sexo" name="sexo" #sexoValidator="ngModel" [(ngModel)]="funcionario.sexo"
+                required>
+                <option [value]="s" *ngFor="let s of key(sexo)">{{sexo[s]}}</option>
+            </select>
+        </div>
+        <div class="form-group col-md-4">
+            <label for="cpf">Cpf</label>
+            <span style="color: red; font-size: 20px;" *ngIf="cpfValidator.invalid"> *</span>
+            <input type="text" mask="000.000.000-00" class="form-control" #cpfValidator="ngModel"
+                [(ngModel)]="funcionario.cpf" placeholder="###.###.###-##" id="cpf" name="cpf" required>
+        </div>
+        <div class="form-group col-md-4">
+            <label for="dataNascimento">Data de nascimento</label>
+            <span style="color: red; font-size: 20px;" *ngIf="dataNascimentoValidator.invalid"> *</span>
+            <div class="input-group mb-3">
+                <input class="form-control" placeholder="dd/mm/yyyy" name="dataNascimento"
+                    #dataNascimentoValidator="ngModel" [(ngModel)]="funcionario.dataNascimento" ngbDatepicker
+                    #dataNascimento="ngbDatepicker" required>
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary calendar" style="width: 30px;"
+                        (click)="dataNascimento.toggle()" type="button"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="matricula">Matricula</label>
+            <span style="color: red; font-size: 20px;" *ngIf="matriculaValidator.invalid"> *</span>
+            <input type="text" class="form-control" id="matricula" name="matricula" [(ngModel)]="funcionario.matricula"
+                #matriculaValidator="ngModel" required>
+        </div>
+
+        <div class="form-group col-md-6">
+            <label for="funcao">Função</label>
+            <span style="color: red; font-size: 20px;" *ngIf="funcaoValidator.invalid"> *</span>
+            <select class="custom-select" id="funcao" name="funcao" [(ngModel)]="funcionario.funcao"
+                #funcaoValidator="ngModel" required>
+                <option *ngFor="let func of key(funcao)" [value]="func">{{funcao[func]}}</option>
+            </select>
+        </div>
+    </div>
+</form>
+
+<form action="" #telefoneValidatorForm="ngForm">
+    <fieldset>
+        <legend>Cadastro de telefones</legend>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="numero">Numero</label>
+                <input type="text" mask='(00)0000-0000' class="form-control" id="numero" name="numero"
+                    [(ngModel)]="telefone.numero" #numeroValidator="ngModel" required>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="numero">Tipo de telefone</label>
+                <select class="custom-select" id="tipoDeTelefone" name="tipoDeTelefone"
+                    [(ngModel)]="telefone.tipoDeTelefone" #tipoValidator="ngModel" required>
+                    <option *ngFor="let tipo of key(tipoDeTelefone)" [value]="tipo">{{tipoDeTelefone[tipo]}}</option>
+                </select>
+            </div>
+        </div>
+    </fieldset>
+
+    <button type="button" class="btn btn-primary" (click)="adicionarTelefone()"
+        [disabled]="telefoneValidatorForm.invalid">Adicionar telefone</button>
+</form>
+
+<table class="table">
+    <thead>
+        <th>Id</th>
+        <th>Numero</th>
+        <th>tipo de telefone</th>
+        <th>Deletar</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let telefone of funcionario.telefones; let i = index">
+            <td>{{telefone.id}}</td>
+            <td>{{telefone.numero}}</td>
+            <td>{{tipoDeTelefone[telefone.tipoDeTelefone]}}</td>
+            <td><button type="button" class="btn btn-danger" (click)="deletarTelefone(telefone.id, i)">Deletar</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+<button type="button" [routerLink]="[ '/funcionarios' ]" routerLinkActive="active"
+    class="btn btn-primary">Voltar</button>
+<button type="button" (click)="limparFormulario()" class="btn btn-primary">Cancelar</button>
+<button type="button" (click)="salvarAction()" class="btn btn-success"
+    [disabled]="funcionarioFormValidator.invalid">Salvar</button>

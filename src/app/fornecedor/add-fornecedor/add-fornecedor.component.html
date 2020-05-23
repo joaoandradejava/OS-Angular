@@ -1,0 +1,35 @@
+<form #fornecedorFormValidator="ngForm">
+    <div class="form-row">
+        <div class="form-group col-md-2">
+            <label for="id">Id</label>
+            <input type="text" class="form-control" [(ngModel)]="fornecedor.id" id="id" name="id" readonly>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="nome">Nome</label>
+        <span style="color: red; font-size: 20px;" *ngIf="nomeValidator.invalid"> *</span>
+        <input type="text" class="form-control" #nomeValidator="ngModel" [(ngModel)]="fornecedor.nome" id="nome"
+            name="nome" required>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="cnpj">Cnpj</label>
+            <span style="color: red; font-size: 20px;" *ngIf="cnpjValidator.invalid"> *</span>
+            <input type="text" mask="00.000.000/0000-00" class="form-control" #cnpjValidator="ngModel"
+                [(ngModel)]="fornecedor.cnpj" id="cnpj" name="cnpj" placeholder="##.###.###/####-##" required>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="razaoSocial">Razão social</label>
+            <span style="color: red; font-size: 20px;" *ngIf="razaoSocialValidator.invalid"> *</span>
+            <input type="text" class="form-control" #razaoSocialValidator="ngModel" [(ngModel)]="fornecedor.razaoSocial"
+                id="razaoSocial" name="razaoSocial" required>
+        </div>
+    </div>
+
+</form>
+
+<button type="button" [routerLink]="[ '/fornecedores' ]" routerLinkActive="active"
+    class="btn btn-primary">Voltar</button>
+<button type="button" (click)="limparFormulario()" class="btn btn-primary">Cancelar</button>
+<button type="button" (click)="salvarAction()" class="btn btn-success"
+    [disabled]="fornecedorFormValidator.invalid">Salvar</button>

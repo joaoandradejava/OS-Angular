@@ -1,0 +1,90 @@
+<form #ordemFormValidator="ngForm">
+    <div class="form-row">
+        <div class="form-group col-md-2">
+            <label for="id">Id</label>
+            <input type="text" class="form-control" [(ngModel)]="ordemDeServico.id" id="id" name="id" readonly>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="descricao">Descrição</label>
+        <span style="color: red; font-size: 20px;" *ngIf="descricaoValidator.invalid"> *</span>
+        <textarea cols="30" rows="5" class="form-control" #descricaoValidator="ngModel"
+            [(ngModel)]="ordemDeServico.descricao" id="descricao" name="descricao" required> </textarea>
+
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="dataInicio">Data de inicio</label>
+            <span style="color: red; font-size: 20px;" *ngIf="dataInicioValidator.invalid"> *</span>
+            <div class="input-group mb-3">
+                <input class="form-control" placeholder="dd/mm/yyyy" name="dataInicio" #dataInicioValidator="ngModel"
+                    [(ngModel)]="ordemDeServico.dataInicio" ngbDatepicker #dataInicio="ngbDatepicker" required>
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary calendar" style="width: 30px;"
+                        (click)="dataInicio.toggle()" type="button"></button>
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="dataFim">Data de fim</label>
+            <span style="color: red; font-size: 20px;" *ngIf="dataFimValidator.invalid"> *</span>
+            <div class="input-group mb-3">
+                <input class="form-control" placeholder="dd/mm/yyyy" name="dataFim" #dataFimValidator="ngModel"
+                    [(ngModel)]="ordemDeServico.dataFim" ngbDatepicker #dataFim="ngbDatepicker" required>
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary calendar" style="width: 30px;" (click)="dataFim.toggle()"
+                        type="button"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="cliente">Cliente</label>
+            <span style="color: red; font-size: 20px;" *ngIf="clienteValidator.invalid"> *</span>
+            <select class="custom-select mr-sm-2" id="cliente" name="cliente" #clienteValidator="ngModel"
+                [(ngModel)]="ordemDeServico.cliente.id" required>
+                <option *ngFor="let cliente of clientes" [value]="cliente.id">{{cliente.nome}}</option>
+            </select>
+        </div>
+
+        <div class="form-group col-md-4">
+            <label for="fornecedor">Fornecedor</label>
+            <span style="color: red; font-size: 20px;" *ngIf="fornecedorValidator.invalid"> *</span>
+            <select class="custom-select mr-sm-2" id="fornecedor" name="fornecedor"
+                [(ngModel)]="ordemDeServico.fornecedor.id" #fornecedorValidator="ngModel" required>
+                <option *ngFor="let fornecedor of fornecedores" [value]="fornecedor.id">{{fornecedor.nome}}</option>
+            </select>
+        </div>
+
+        <div class="form-group col-md-4">
+            <label for="funcionario">Funcionario</label>
+            <span style="color: red; font-size: 20px;" *ngIf="funcionarioValidator.invalid"> *</span>
+            <select class="custom-select mr-sm-2" id="fornecedor" name="funcionario"
+                [(ngModel)]="ordemDeServico.funcionario.id" #funcionarioValidator="ngModel" required>
+                <option *ngFor="let funcionario of funcionarios" [value]="funcionario.id">{{funcionario.nome}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-2">
+            <label for="">Lista de produtos</label>
+        </div>
+
+        <div class="form-group col-md-6">
+            <ng-multiselect-dropdown id="produtos" [placeholder]="'Selecione os produtos'" [data]="produtos"
+                [(ngModel)]="ordemDeServico.produtos" name="produtos" [settings]="dropdownSettings"
+                (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+            </ng-multiselect-dropdown>
+        </div>
+    </div>
+
+</form>
+
+
+
+<button type="button" [routerLink]="[ '/ordens' ]" routerLinkActive="active" class="btn btn-primary">Voltar</button>
+<button type="button" (click)="limparFormulario()" class="btn btn-primary">Cancelar</button>
+<button type="button" (click)="salvarAction()" class="btn btn-success"
+    [disabled]="ordemFormValidator.invalid">Salvar</button>

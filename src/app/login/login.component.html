@@ -1,0 +1,26 @@
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+        <!-- Tabs Titles -->
+
+        <!-- Icon -->
+        <div class="fadeIn first">
+            <!--<img src="" width="30px" id="icon" alt="Login do sistema" /> -->
+            <h4>Login do sistema</h4>
+        </div>
+
+        <!-- Login Form -->
+        <form>
+            <input type="text" id="login" class="fadeIn second" name="login" [(ngModel)]="login.login"
+                placeholder="login">
+            <input type="password" id="password" class="fadeIn third" name="senha" [(ngModel)]="login.senha"
+                placeholder="senha">
+            <input type="button" class="fadeIn fourth" (click)="logar()" value="Logar">
+        </form>
+
+        <!-- Remind Passowrd -->
+        <div id="formFooter">
+            <a class="underlineHover" [routerLink]="[ '/cadastrarUsuario' ]" routerLinkActive="active">cadastrar-se</a>
+        </div>
+
+    </div>
+</div>
