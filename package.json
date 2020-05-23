@@ -24,7 +24,7 @@
     "angular-alert-module": "^2.0.3",
     "bootstrap": "^4.1.3",
     "chart.js": "^2.9.3",
-    "jquery": "^3.3.1",
+    "jquery": "^3.5.0",
     "ng-multiselect-dropdown": "^0.2.10",
     "ng2-charts": "^2.3.2",
     "ngx-currency": "^2.3.3",
